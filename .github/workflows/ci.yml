@@ -6,6 +6,9 @@ on:
       token:
         required: false
     inputs:
+      craft_version:
+        default: '4'
+        type: string
       php_version:
         default: '8.0'
         type: string
