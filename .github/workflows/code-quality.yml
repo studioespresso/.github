@@ -19,3 +19,9 @@ jobs:
     uses: ./.github/workflows/ecs.yml
     with:
       php_version: ${{ inputs.php_version }}
+  phpstan:
+    name: PHPStan
+    if: ${{ contains(fromJSON(inputs.jobs), 'phpstan') }}
+    uses: ./.github/workflows/phpstan.yml
+    with:
+      php_version: ${{ inputs.php_version }}
