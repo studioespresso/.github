@@ -2,6 +2,11 @@ name: Check Changelog
 on:
   pull_request:
     types: [assigned, opened, synchronize, reopened, labeled, unlabeled]
+  workflow_call:
+    inputs:
+      changelog_filename:
+        required: true
+        type: string
 jobs:
   Check-Changelog:
     name: Check Changelog Action
