@@ -12,14 +12,14 @@ on:
       php_version:
         default: '8.0'
         type: string
+      changelog_filename:
+        default: 'CHANGELOG'
+        type: string
       node_version:
         default: '16'
         type: string
       jobs:
         default: '["ecs"]'
-        type: string
-      slack_subteam:
-        default: ''
         type: string
 concurrency:
   group: ci-global-${{ github.ref }}
@@ -33,3 +33,9 @@ jobs:
       php_version: ${{ fromJSON('{"3":"7.2","4":"8.1","5":"8.2"}')[inputs.craft_version] || inputs.php_version }}
       jobs: ${{ inputs.jobs }}
       node_version: ${{ inputs.node_version }}
+  changelog-check:
+    name: Check changelog
+    if: ${{ contains(fromJSON(inputs.jobs), 'changelog') }}
+    uses: ./.github/workflows/changelog.yml
+    with:
+      changelog_filename: ${{ inputs.changelog_filename }}
