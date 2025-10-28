@@ -30,7 +30,7 @@ jobs:
     if: ${{ contains(fromJSON(inputs.jobs), 'ecs') || contains(fromJSON(inputs.jobs), 'phpstan')}}
     uses: ./.github/workflows/code-quality.yml
     with:
-      php_version: ${{ fromJSON('{"3":"7.2","4":"8.1","5":"8.2"}')[inputs.craft_version] || inputs.php_version }}
+      php_version: ${{ inputs.php_version || fromJSON('{"3":"7.2","4":"8.1","5":"8.2"}')[inputs.craft_version] }}
       jobs: ${{ inputs.jobs }}
       node_version: ${{ inputs.node_version }}
   changelog-check:
