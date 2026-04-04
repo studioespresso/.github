@@ -7,16 +7,16 @@ on:
         required: false
     inputs:
       craft_version:
-        default: '4'
+        default: "5"
         type: string
       php_version:
-        default: '8.0'
+        default: "8.4"
         type: string
       changelog_filename:
-        default: 'CHANGELOG'
+        default: "CHANGELOG"
         type: string
       node_version:
-        default: '16'
+        default: "16"
         type: string
       jobs:
         default: '["ecs"]'
@@ -30,7 +30,7 @@ jobs:
     if: ${{ contains(fromJSON(inputs.jobs), 'ecs') || contains(fromJSON(inputs.jobs), 'phpstan')}}
     uses: ./.github/workflows/code-quality.yml
     with:
-      php_version: ${{ inputs.php_version || fromJSON('{"3":"7.2","4":"8.1","5":"8.2"}')[inputs.craft_version] }}
+      php_version: ${{ inputs.php_version || fromJSON('{"3":"7.2","4":"8.1","5":"8.4"}')[inputs.craft_version] }}
       jobs: ${{ inputs.jobs }}
       node_version: ${{ inputs.node_version }}
   changelog-check:
