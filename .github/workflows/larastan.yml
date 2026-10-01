@@ -1,0 +1,29 @@
+name: Larastan
+on:
+  workflow_call:
+    inputs:
+      php_version:
+        required: true
+        type: string
+jobs:
+  larastan:
+    name: Larastan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP
+        id: setup-php
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ inputs.php_version }}
+          extensions: "ctype,curl,dom,iconv,imagick,intl,json,mbstring,openssl,pcre,pdo,reflection,spl,zip"
+          ini-values: post_max_size=256M, max_execution_time=180, memory_limit=512M
+          tools: composer:v2
+        env:
+          COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --no-ansi --no-progress
+      # Larastan is PHPStan with the Laravel extension, configured through the repository's phpstan.neon
+      - name: Run Larastan checks
+        run: "vendor/bin/phpstan --memory-limit=2G"

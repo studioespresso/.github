@@ -31,3 +31,9 @@ jobs:
     uses: ./.github/workflows/phpstan.yml
     with:
       php_version: ${{ inputs.php_version }}
+  larastan:
+    name: Larastan
+    if: ${{ contains(fromJSON(inputs.jobs), 'larastan') }}
+    uses: ./.github/workflows/larastan.yml
+    with:
+      php_version: ${{ inputs.php_version }}
