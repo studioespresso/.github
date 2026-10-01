@@ -19,6 +19,12 @@ jobs:
     uses: ./.github/workflows/ecs.yml
     with:
       php_version: ${{ inputs.php_version }}
+  pint:
+    name: Pint
+    if: ${{ contains(fromJSON(inputs.jobs), 'pint') }}
+    uses: ./.github/workflows/pint.yml
+    with:
+      php_version: ${{ inputs.php_version }}
   phpstan:
     name: PHPStan
     if: ${{ contains(fromJSON(inputs.jobs), 'phpstan') }}

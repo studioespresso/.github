@@ -1,0 +1,27 @@
+name: Pint
+
+on:
+  workflow_call:
+    inputs:
+      php_version:
+        required: true
+        type: string
+
+jobs:
+  pint:
+    name: Pint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ inputs.php_version }}
+          tools: pint:1
+          coverage: none
+
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      # Uses the repository's pint.json, no Composer install needed
+      - name: Run Pint checks
+        run: pint --test

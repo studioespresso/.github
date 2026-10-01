@@ -27,10 +27,10 @@ concurrency:
 jobs:
   code-quality:
     name: Code Quality
-    if: ${{ contains(fromJSON(inputs.jobs), 'ecs') || contains(fromJSON(inputs.jobs), 'phpstan')}}
+    if: ${{ contains(fromJSON(inputs.jobs), 'ecs') || contains(fromJSON(inputs.jobs), 'pint') || contains(fromJSON(inputs.jobs), 'phpstan')}}
     uses: ./.github/workflows/code-quality.yml
     with:
-      php_version: ${{ inputs.php_version || fromJSON('{"3":"7.2","4":"8.1","5":"8.4"}')[inputs.craft_version] }}
+      php_version: ${{ inputs.php_version || fromJSON('{"3":"7.2","4":"8.1","5":"8.4","6":"8.5"}')[inputs.craft_version] }}
       jobs: ${{ inputs.jobs }}
       node_version: ${{ inputs.node_version }}
   changelog-check:
